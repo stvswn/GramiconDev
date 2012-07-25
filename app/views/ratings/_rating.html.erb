@@ -1,0 +1,3 @@
+<span>
+  <button class='btn btn-info btn-mini disabled' rel='tooltip' title='Marked <%= rating.value ? "up" : "down" %> <%= distance_of_time_in_words(Time.now, rating.created_at) %> ago'><%= rating.value ? "⬆" : "⬇" %></button>
+</span>

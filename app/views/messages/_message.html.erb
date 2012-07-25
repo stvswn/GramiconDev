@@ -1,0 +1,7 @@
+<% if type == 'sent' %>
+	<%= render 'messages/message_sent', :message => message %>
+<% elsif message.unclaimed? %>
+	<%= render 'messages/message_unclaimed', :message => message %>
+<% else %>
+	<%= render 'messages/message_claimed', :message => message %>
+<% end %>

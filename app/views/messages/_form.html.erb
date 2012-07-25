@@ -1,0 +1,62 @@
+
+<div class="row">
+  <div class="span7">
+
+    <%= form_for @message, :url => messages_path , :html => { :class => 'form-horizontal' } do |f| %>
+      <div class="validation-error">
+        <%= f.error_messages %>
+      </div>
+
+        <div class="control-group">
+          <%= f.label :recipient_id, 'To', :class => 'control-label' %>
+          <div class="controls">
+            <% if params.key?(:replyto) %>
+              <span><%= @message.recipient %></span>
+            <% else %>
+              <%= f.select :recipient_id, 
+                @users, 
+                { :include_blank => "Find Person ..." }, 
+                :class => "chzn-select span4 user-select", 
+                :data => { :placeholder => "Find Person ..." } %>
+            <% end %>
+          </div>
+        </div>
+      <div class="control-group">
+        <%= f.label :body, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_area :body, :class => 'text_area span4', :rows => 8 %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :credits, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.number_field :credits, :class => 'text_area span1 message-cost' %>
+        </div>
+      </div>
+
+      <% if params.key?(:replyto) %>
+        <%= hidden_field_tag 'replyto', params[:replyto] %>
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.submit "Send", :class => 'btn btn-primary send-message-button' %>
+        or <%= link_to t('.cancel', :default => t("helpers.links.cancel")), inbox_path %>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="span5">
+    <div class="well">
+      <p>This gram will cost you <span class="message-cost">0</span> credits.</p>
+      <p>After sending it, you will have <span class="credits-balance-after-message">0</span> credits remaining.</p>
+    </div>
+    <div class="not-enough-credit-section" style="display:none">
+      <div class="alert alert-error">
+        <strong>Oops!</strong> It looks like you need to add more credits to your account to send this message.
+      </div>
+      <div class="well">
+        <%= render 'credit_transactions/form', :credit_transaction => CreditTransaction.new(:amount=>10), :user => current_user %>
+      </div>
+    </div>
+  </div>
+</div>

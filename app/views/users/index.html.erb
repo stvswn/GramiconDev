@@ -1,0 +1,23 @@
+<%= form_tag users_path, :method => 'get', :id => "users_search" do %>
+  <div class="well form-search">
+    <%= text_field_tag :sname, params[:sname], :class => "input-medium search-query", :placeholder => "Find by Name" %>
+    <%= text_field_tag :szipcode, params[:szipcode], :class => "input-medium search-query", :placeholder => "Find by Zip Code" %>
+    <label class="checkbox inline">
+    	<%= check_box_tag :smale, 'yes', params[:smale], :class => '' %>
+    	Male
+    </label>
+    <label class="checkbox inline">
+    	<%= check_box_tag :sfemale, 'yes', params[:sfemale], :class => '' %>
+    	Female
+    </label>
+
+    <%= hidden_field_tag :sminage, params[:sminage] || 18, :class => "input-small search-query sminage", :placeholder => "Min DoB" %>
+    <%= hidden_field_tag :smaxage, params[:smaxage] || 99, :class => "input-small search-query smaxage", :placeholder => "Max DoB" %>
+    
+    <div class="slider-wrap">
+      <div class="slider-label"></div>
+      <div class="slider" id="slider-range"></div>
+    </div>
+  </div>
+  <div id="users"><%= render 'users' %></div>
+<% end %>

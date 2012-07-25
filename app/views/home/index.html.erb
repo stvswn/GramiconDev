@@ -1,0 +1,42 @@
+
+<% if user_signed_in? %>
+	<div class="hero-unit">
+		<h1>Hi there</h1>
+		<p>Check out your inbox for new grams and replies.</p>
+		<p>
+			<a href="<%= inbox_path %>" class="btn btn-primary btn-large">
+				Go to My Inbox
+			</a>
+		</p>
+		<p>Congratulations, you’re one of our first members! Now that you're a member please remember to:<br><br>
+
+• Complete your user profile (photo, date of birth, and zip code)<br>
+• Claim less than 25 credits per day<br>
+• Send at least one gram every week.<br><br>
+
+If you have any questions or suggestions please e-mail joe@gramicon.com - Thanks!
+
+</p>
+	</div>
+<% else %>
+	<div class="hero-unit">
+		<h1>Welcome to Gramicon!</h1>
+		<p>Why not sign up?</p>
+		<p>
+			<a href="<%= new_user_registration_path %>" class="btn btn-primary btn-large">
+				Sign Up
+			</a>
+		</p>
+		<p>
+			Gramicon helps you <strong> eliminate unwanted messages</strong> and <strong>contact anyone </strong>(without being a pest)<br><br>
+			
+You’ve arrived here prior our official launch for testers and friends. No problem! If you choose to register we would ask that you do us the following favors:<br><br>
+
+• Profile: After registering, complete your user profile (photo, date of birth, and zip code)<br>
+• Credits: Please only claim a maximum of 25 credits per day<br>
+• Frequency of use: Please check your account and send one gram at least once every week.<br><br>
+
+If you have any questions or suggestions please e-mail joe@gramicon.com - Thanks!
+
+	</div>
+<% end %>

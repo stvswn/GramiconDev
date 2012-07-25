@@ -1,0 +1,19 @@
+
+
+<%= form_for credit_transaction, :remote => true, :html => { :'data-type' => 'json', :class => "form-horizontal get-credit-ajax-form" } do |f| %>
+  <%= f.error_messages %>
+  <div class="control-group">
+    <div class="control-label">Current Credit Balance</div>
+    <div class="controls"><span class='num-credits'><%= user.credits %></span></div>
+  </div>
+  <div class="control-group">
+    <%= f.label :amount, 'Credit Amount (0-10)', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :amount, :class => "span2 user-select" %>
+    </div>
+  </div>
+  <div class="control-group" style="text-align:center">
+    <label><%= check_box_tag 'agree', nil, nil, :class => 'disable-next-button' %> I agree to the <a href="#">Terms of Use</a> for Gramicon Credits</label>
+  </div>
+  <p style="text-align:center"><%= f.submit 'Get Credits', :class => 'btn btn-primary', :disabled => 'disabled' %></p>
+<% end %>

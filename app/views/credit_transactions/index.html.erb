@@ -1,0 +1,20 @@
+<% title "Credit Transactions" %>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Amount</th>
+    <th>Message</th>
+    <th>Action</th>
+  </tr>
+  <% for credit_transaction in @credit_transactions %>
+    <tr>
+      <td><%= credit_transaction.user_id %></td>
+      <td><%= credit_transaction.amount %></td>
+      <td><%= credit_transaction.message_id %></td>
+      <td><%= credit_transaction.action %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Credit Transaction", new_credit_transaction_path %></p>

@@ -1,0 +1,39 @@
+<%- model_class = @user.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><%= model_class.human_attribute_name(:name) %>:</dt>
+  <dd><%= @user.name %></dd>
+  <dt><%= model_class.human_attribute_name(:email) %>:</dt>
+  <dd><%= @user.email %></dd>
+  <dt><%= model_class.human_attribute_name(:dob) %>:</dt>
+  <dd><%= @user.dob %></dd>
+  <dt><%= model_class.human_attribute_name(:gender) %>:</dt>
+  <dd><%= @user.gender %></dd>
+  <dt><%= model_class.human_attribute_name(:zip_code) %>:</dt>
+  <dd><%= @user.zip_code %></dd>
+  <dt><%= model_class.human_attribute_name(:sign_in_count) %>:</dt>
+  <dd><%= @user.sign_in_count %></dd>
+  <dt><%= model_class.human_attribute_name(:current_sign_in_at) %>:</dt>
+  <dd><%= @user.current_sign_in_at %></dd>
+  <dt><%= model_class.human_attribute_name(:last_sign_in_at) %>:</dt>
+  <dd><%= @user.last_sign_in_at %></dd>
+  <dt><%= model_class.human_attribute_name(:current_sign_in_ip) %>:</dt>
+  <dd><%= @user.current_sign_in_ip %></dd>
+  <dt><%= model_class.human_attribute_name(:last_sign_in_ip) %>:</dt>
+  <dd><%= @user.last_sign_in_ip %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              users_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_user_path(@user), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              user_path(@user),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>

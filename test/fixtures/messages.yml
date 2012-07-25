@@ -1,0 +1,15 @@
+one:
+  title: MyString
+  body: MyText
+  sender_id: 1
+  recipient_id: 1
+  thread_id: 1
+  folder_id: 1
+
+two:
+  title: MyString
+  body: MyText
+  sender_id: 1
+  recipient_id: 1
+  thread_id: 1
+  folder_id: 1

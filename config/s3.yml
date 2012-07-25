@@ -1,0 +1,12 @@
+development:
+  bucket: gramicondevel
+  access_key_id: AKIAJJSJZJ7BRAXY6NJQ
+  secret_access_key: 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
+test:
+  bucket: bucket-test
+  access_key_id: xxx
+  secret_access_key: xxx
+production:
+  bucket: Gramicon
+  access_key_id: AKIAIRX77XWEZ2LSQ3ZA
+  secret_access_key: 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

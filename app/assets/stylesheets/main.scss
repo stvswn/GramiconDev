@@ -1,0 +1,14 @@
+
+.slider-wrap {
+	display:inline-block;
+	padding: 5px 10px 0;
+	.slider-label {
+		display: inline-block;
+		width: 80px;
+	}
+	.slider.ui-widget {
+		display: inline-block;
+		width: 150px;
+		font-size: 11px;
+	}
+}

@@ -1,0 +1,17 @@
+
+<div class="message" data-messageid='<%= message.id %>'>
+	<div class="clearfix">
+		<p class=''>
+			<span>To: <%= message.recipient %> </span> | 
+			<span>State: <%= message.state.capitalize %> </span>
+			<% if message.rating %> | 
+				<span>Rated <%= message.rating.value ? "⬆" : "⬇" %></span>
+			<% end %>
+		</p>
+		<blockquote>
+			<p><%=h message.body.html_safe %></p>
+			<small><%= message.created_at.to_formatted_s(:short) %></small>
+		</blockquote>
+	</div>
+	<hr/>
+</div>

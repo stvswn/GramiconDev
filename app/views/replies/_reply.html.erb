@@ -1,0 +1,51 @@
+<% if type == 'sent' %>
+	<%= render 'messages/message_sent', :message => reply %>
+<% elsif reply.unclaimed? %>
+	<div class="message" data-messageid='<%= reply.id %>'>
+		<div class="clearfix">
+		  <div class="body">
+				<p>
+					<span class="lead"><%= image_tag reply.sender.picture.url(:tiny) if reply.sender.picture.file? %> <%= reply.sender %></span> 
+					<a data-toggle="modal" href="#messagemod<%= reply.id %>"><i class="icon-search" rel="tooltip" title="Preview Gram"></i></a>
+				</p>
+				<small><%= reply.credits %> Credits | <%= reply.created_at.to_formatted_s(:short) %></small>
+			</div>
+			<div class="message-options">
+				<% if !reply.claim_expired? %>
+					<% if reply.can_open_it? %>
+						<%= form_for(reply, :url => update_message_state_path(reply, 'claim'), :method => :put, :html => { :class => 'pull-right' }) do |f| %>
+							<%= f.submit "Claim It", :class => "btn btn-primary", :rel => 'tooltip', :title => "Receive Credits" %>
+						<% end %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+		<hr/>
+	</div>
+
+  <div class="modal hide fade" id="messagemod<%= reply.id %>">
+		<div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal">×</button>
+	    <h3>Message from <%= reply.sender %> <small><%= reply.created_at.to_formatted_s(:short) %></small></h3>
+	  </div>
+	  <div class="modal-body">
+			<blockquote>
+				<p><%=h reply.body.html_safe %></p>
+				<small><%=h reply.sender.to_s.html_safe %></small>
+			</blockquote>
+	  </div>
+	  <div class="modal-footer">
+		<% if !reply.claim_expired? %>
+			<% if reply.can_open_it? %>
+				<%= form_for(reply, :url => update_message_state_path(reply, 'claim'), :method => :put, :html => { :class => 'pull-right' }) do |f| %>
+					 <%= f.submit "Claim It", :class => "btn btn-primary", :rel => 'tooltip', :title => "Receive Credits" %> 
+				<% end %>
+			<% end %>
+		<% end %>
+	    <a href="#" class="btn" data-dismiss="modal">Close</a>
+	  </div>
+	</div>
+
+<% else %>
+	<%= render 'messages/message_claimed', :message => reply %>
+<% end %>

@@ -1,0 +1,42 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= sortable "name" %></th>
+      <th><%= sortable "ratingcache", "Rating" %></th>
+      <th><%= "Claim Average" %></th>
+      <th><%=  "Zip Code" %></th>
+      <th><%= sortable "dob", "Age" %></th>
+      <th><%= sortable "gender" %></th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <% for user in @users %>
+    <tr>
+      <td>
+        <%= image_tag user.picture.url(:tiny) if user.picture.file? %> <%= user.name %>
+      </td>
+      <td>
+        <% if user.ratings.count > 0 %>
+          <span rel='tooltip' title='<%= user.ratings.positive.count %> Up | <%= user.ratings.negative.count %> Down'>
+            <%= user.rating_percentage %>%
+          </span>
+        <% else %>
+          <span class="muted">Not Yet Rated</span>
+        <% end %>
+      </td>
+      <td><%= user.credits_per_gram_average || ("<span class='muted'>None Claimed</span>").html_safe %></td>
+      <td><%= user.zip_code %></td>
+      <td><% if user.dob %><%= user.age %><% end %></td>
+      <td><%= user.gender.upcase if user.gender %></td>
+      <td>
+        <% if current_user && user!=current_user %>
+          <a class="btn btn-mini" href="<%= new_message_path( :to => user.id ) %>">
+            <i class="icon-envelope"></i> Send Gram
+          </a>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,68 @@
+<div class="message clearfix">
+	<div class="body">
+		<p>
+			<span class="lead"><%= message.credits %> Credits</span> 
+			<a data-toggle="modal" href="#messagemod<%= message.id %>"><i class="icon-search" rel="tooltip" title="Preview Gram"></i></a>
+
+
+	<div class="message-options">
+		<% if !message.claim_expired? %>
+			<% if message.can_open_it? %>
+				<%= form_for(message, :url => update_message_state_path(message, 'claim'), :method => :put, :html => { :class => 'pull-right' }) do |f| %>
+					<div class="btn-group">
+						<%= f.submit "Claim It", :class => "btn btn-primary", :rel => 'tooltip', :title => "Receive Credits" %>
+					</div>
+				<% end %>
+			<% end %>
+			<% if message.can_hold? %>
+				<%= form_for(message, :url => update_message_state_path(message, 'hold'), :method => :put, :html => { :class => 'pull-right' }) do |f| %>
+					<%= f.submit "Hold It", :class => "btn" %>
+				<% end %>
+			<% end %>
+			<% if message.can_dismiss? %>
+				<%= form_for(message, :url => update_message_state_path(message, 'dismiss'), :method => :put, :html => { :class => 'pull-right' }) do |f| %>
+					<%= f.submit "Dismiss It", :class => "btn btn-danger", :rel => 'tooltip', :title => "Return Credits" %>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+			
+		</p>
+		<p>
+			<% if message.claim_expired? %>
+				Expired <%= distance_of_time_in_words(Time.now, message.claim_expiry_time) %> ago
+			<% else %>
+				Time remaining to claim: <span class='seconds-countdown'><%= ((message.claim_expiry_time - Time.now).to_i) %></span> seconds (or <%= distance_of_time_in_words(Time.now, message.claim_expiry_time) %>)
+			<% end %>
+		</p>
+	</div>
+</div>
+
+<div class="modal hide fade" id="messagemod<%= message.id %>">
+	<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Message from <%= message.sender %> <small><%= message.created_at.to_formatted_s(:short) %></small></h3>
+  </div>
+  <div class="modal-body">
+		<blockquote>
+			<p>
+				<%=h message.body.split[0...10].join(' ').html_safe %>
+				<%=h  message.body[message.body.split[0...10].join(' ').length..-1].gsub(/[^ ]/,'x').html_safe %>
+			</p>
+			<small><%=h message.sender.to_s.html_safe %></small>
+		</blockquote>
+  </div>
+  <div class="modal-footer">
+		<% if !message.claim_expired? %>
+			<% if message.can_open_it? %>
+				<%= form_for(message, :url => update_message_state_path(message, 'claim'), :method => :put, :html => { :class => 'pull-right' }) do |f| %>
+					 <%= f.submit "Claim It", :class => "btn btn-primary", :rel => 'tooltip', :title => "Receive Credits" %> 
+				<% end %>
+			<% end %>
+		<% end %>
+     <a href="#" class="btn" data-dismiss="modal">Close</a> 
+
+  </div>
+</div>
+
+<hr/>

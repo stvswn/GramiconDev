@@ -1,0 +1,115 @@
+<div class="page-header">
+  <h1 class="pull-left">Inbox <small><%= @type_title %></small></h1>
+  <div class="pull-right">
+  	<a href="<%= new_message_path %>" class="btn btn-inverse"><i class="icon-envelope icon-white"></i> New Gram</a>
+  </div>
+  <div class="clearfix"> </div>
+</div>
+
+
+<div class="row">
+	<div class="span4 folders">
+
+		<ul class="nav nav-pills nav-stacked">
+			<li class="<%= 'active' if @type=='unread' %>">
+				<a href="<%= inbox_path %>">Unread Grams 
+					<% if @unread_messages_count > 0 %>
+						<span class='badge badge-inverse'><%= @unread_messages_count %></span>
+					<% end %>
+				</a>
+			</li>
+			<li class="<%= 'active' if @type=='claimed' %>">
+				<a href="<%= type_inbox_path :type_name => 'claimed' %>">Claimed Grams</a>
+			</li>
+			<li class="<%= 'active' if @type=='claimedreplies' %>">
+				<a href="<%= type_inbox_path :type_name => 'claimedreplies' %>">Claimed Replies</a>
+			</li>
+			<li class="<%= 'active' if @type=='onhold' %>">
+				<a href="<%= type_inbox_path :type_name => 'onhold' %>">Grams on Hold
+					<% if @onhold_messages_count > 0 %>
+						<span class='badge badge-inverse'><%= @onhold_messages_count %></span>
+					<% end %>
+				</a>
+			</li>
+		</ul>
+
+		<hr/>
+
+		<ul class="nav nav-pills nav-stacked">
+			<li class="<%= 'active' if @type=='sent' %>">
+				<a href="<%= type_inbox_path :type_name => 'sent' %>">Sent Grams</a>
+			</li>
+		</ul>
+
+		<hr/>
+
+		<!-- 
+		<% if @folders %>
+			<ul class="nav nav-pills nav-stacked">
+				<li class="nav-header">
+					Folders
+				</li>
+				<% for folder in @folders %>
+					<li class="<%= 'active ' if @folder==folder %>folder">
+						<a href="<%= folder_inbox_path(folder.id) %>">
+							<%= best_in_place folder, :name, :type => :input, :activator => '#editfolder'+folder.id.to_s %>
+						</a>
+						<div class="folder-options">
+							<a class="pull-right" herf="#" id="editfolder<%= folder.id.to_s %>">
+								<i class="icon-pencil"></i>
+							</a>
+						</div>
+					</li>
+				<% end %>
+			</ul>
+			<%= form_for Folder.new do |f| %>
+				<%= f.submit "New Folder", :class => "btn" %>
+			<% end %> 
+		<% end %> -->
+	</div>
+	<div class="span8 messages">
+		<div class="row">
+			<div class="span<%= @type=='unread' ? '4' : '8' %>">
+
+				<% if !@messages.blank? %>
+					<h2><%= @type_title %></h2>
+					<% if @type=='claimed' ||  @type=='claimedreplies' %>
+						<div class="row  message-row">
+						  <div class="span2">
+								<strong>From</strong>
+							</div>
+						  <div class="span3">
+								<strong>Message</strong>
+							</div>
+						  <div class="span2">
+								<strong>Time Sent</strong>
+							</div>
+						  <div class="span1">
+						  	<strong><%= @type=='claimed' ? 'Status' : 'Rating' %></strong>
+						  </div>
+						</div>
+					<% end %>
+					<% for message in @messages %>
+						<%= render message, :type => @type %>
+					<% end %>
+				<% else %>
+					<div>You have no grams ...</div>
+				<% end %>
+
+			</div>
+			<% if @type == 'unread' %>
+				<div class="span4">
+					<h2>Replies</h2>
+					<% if !@replies.blank? %>
+						<% for reply in @replies %>
+							<%= render reply, :type => @type %>
+						<% end %>
+					<% else %>
+						<div>You have no grams ...</div>
+					<% end %>
+
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

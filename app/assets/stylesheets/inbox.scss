@@ -1,0 +1,41 @@
+.folders {
+	.folder {
+		position: relative;
+		.folder-options { position:absolute; top:8px; right:8px; display:none; }
+		a:hover { text-decoration: none; }
+	}
+	.folder:hover {
+		.folder-options { display:block; }
+	}
+}
+
+.message-row {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #DDD;
+	.message-body {
+		white-space: nowrap;
+		overflow: hidden;
+	}
+	.profile-picture {
+		height: 30px;
+	}
+}
+.message-row:nth-child(even) {
+	background-color: #F9F9F9;
+}
+
+.messages {
+	.message {
+		position: relative;
+		blockquote, .body { float: left; }
+		.message-options{
+			float: right;
+			form { margin: 0; }
+			input, a { margin: 2px 4px; }
+			.btn-group {
+				input, a { margin: 2px 0px; }
+			}
+		}
+	}
+}

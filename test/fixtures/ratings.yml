@@ -1,0 +1,11 @@
+one:
+  user_id: 1
+  message_id: 1
+  rater_id: 1
+  value: false
+
+two:
+  user_id: 1
+  message_id: 1
+  rater_id: 1
+  value: false

@@ -1,0 +1,11 @@
+one:
+  user_id: 1
+  amount: 1
+  message_id: 1
+  action: MyString
+
+two:
+  user_id: 1
+  amount: 1
+  message_id: 1
+  action: MyString
